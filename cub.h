@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsarafia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsarafia <tsarafia@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/09 17:44:45 by tsarafia          #+#    #+#             */
-/*   Updated: 2020/03/10 20:03:01 by tsarafia         ###   ########.fr       */
+/*   Created: 2020/03/11 10:59:08 by tsarafia          #+#    #+#             */
+/*   Updated: 2020/03/11 14:57:45 by tsarafia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,9 @@
 
 struct		s_parse
 {
-	char **linee;
-	char *res;
+//	char **linee;
+	char *res_x;
+	char *res_y;
 	char *north;
 	char *south;
 	char *west;
@@ -37,8 +38,7 @@ typedef	struct	s_parse	t_parse;
 
 struct		s_cub
 {
-	char **str;
-	t_parse *parser;
+	t_parse *parse;
 };
 typedef struct	s_cub t_cub;
 
