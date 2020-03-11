@@ -1,53 +1,129 @@
 #include "cub.h"
 
-char	*find_res_x(t_cub *cub, char *line)
+char	*parsing_res_x(t_cub *cub, char **line)
 {
 	int start;
 	int i;
 
 	start = 0;
 	i = 0;
-	line++;
-	while (!ft_isdigit(line[start]))
-		start++;
-	while (ft_isdigit(line[start]))
-	{
-		start++;
+	i++;
+	while (!ft_isdigit(line[0][i]))
 		i++;
-	}
-	if (!(cub->parse->res_x = malloc(i + 1)))
+	while (ft_isdigit(line[0][start]))
+		start++;
+	if (!(cub->parse->res_x = malloc(start + 1)))
 		return (NULL);
-	start -= i;
-	i = 0;
-	while (ft_isdigit(line[start]))
+	start = 0;
+	printf("|%c|\n", **line);
+	while (ft_isdigit(line[0][i]))
 	{
-		cub->parse->res_x[i] = line[start];
+		cub->parse->res_x[start] = line[0][i];
+		printf("--------%d\n", start);
+		//printf("VOILI : %c\n", **line);
+	//	printf("VOILA : %c | %d\n", cub->parse->res_x[start], start);
 		i++;
 		start++;
 	}
-	cub->parse->res_x[i] = '\0';
-	return cub->parse->res_x;
+	cub->parse->res_x[start] = '\0';
+	return (cub->parse->res_x);
+}
+
+char	*parsing_res_y(t_cub *cub, char **line)
+{
+	int start;
+	int i;
+
+	start = 0;
+	i = 0;
+	while (!ft_isdigit(**line))
+		(*line)++;
+	while (ft_isdigit(*line[start]))
+		start++;
+	if (!(cub->parse->res_y = malloc(start + 1)))
+		return (NULL);
+	start = 0;
+	while (ft_isdigit(**line))
+	{
+		cub->parse->res_y[start] = **line;
+		start++;
+		(*line)++;
+	}
+	cub->parse->res_y[start] = '\0';
+	return (cub->parse->res_y);
 }
 
 
+int parsing_res(t_cub *cub, char *line)
+{
+	line = malloc(sizeof(line));
+//		return (NULL);
+	parsing_res_x(cub, &line);	
+	parsing_res_y(cub, &line);
+	return (1); //ERROR A CORIGER
+}
 
+int		parsing_north(t_cub *cub, char *line)
+{
+	while (*line != '.')
+		line++;
+	if (!(cub->parse->north = ft_strdup(line)))
+		return (-1);
+	return 1;
+}
+int		parsing_west(t_cub *cub, char *line)
+{
+	while (*line != '.')
+		line++;
+	if (!(cub->parse->west = ft_strdup(line)))
+		return (-1);
+	return 1;
+}
+
+int		parsing_east(t_cub *cub, char *line)
+{
+	while (*line != '.')
+		line++;
+	if (!(cub->parse->east = ft_strdup(line)))
+		return (-1);
+	return 1;
+}
+
+int		parsing_south(t_cub *cub, char *line)
+{
+	while (*line != '.')
+		line++;
+	if (!(cub->parse->south = ft_strdup(line)))
+		return (-1);
+	return 1;
+}
 int		parsing(t_cub *cub, char *line)
 {
 	int i;
 
 	i = 0;
+	
 	while (line[i])
 	{
-		printf("%c", line[i]);
-		if (line[0] == 'R')
-			cub->parse->res_x = ft_strdup(line);
-		printf("o K ::: %s\n", find_res_x(cub, line));
-		//if (line[1]
+		if (line[i] == 'R')
+			parsing_res(cub, line);
+		else if (line[i] == 'N' && line[i + 1] == 'O')
+			parsing_north(cub, line);
+		else if (line[i] == 'S' && line[i + 1] == 'O')
+			parsing_south(cub, line);
+		else if (line[i] == 'W' && line[i + 1] == 'E')
+			parsing_west(cub, line);
+		else if (line[i] == 'E' && line[i + 1] == 'A')
+			parsing_east(cub, line);
+		else if (line[i] == 'S')
+			parsing_south(cub, line);
+/*		else if (line[i] == 'F')
+			parsing_floor(cub, line);
+		else if (line[i] == 'C')
+			parsing_ceiling(cub, line);
+*/
 		i++;
 	}
-	printf("\n");
-	//	printf("%s\n", line);
-
 	return 0;	 
 }
 
@@ -79,24 +155,13 @@ int main(int ac, char **av)
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		parsing(cub, line);
-		//
-		//appel d'une fonction qui va tout foutre dans une structure 
-		//
-		//	tmp[i] = line;
-		//	tmp[i] = ft_strjoin(tmp[i], "\n");
-		//	printf("%s", tmp[i]);
-		//	printf("%s\n", cub->str[i]);
-		//	printf("i ->%d<-\n", i);
-		//i++;
-		// if (line[0] == 'R')
-		// 	res = ft_strdup(line);
-		// else if (line[0] == 'S')
-		// 	sprite_tex = ft_strdup(line);
 	}
 	//tmp[i] = line;
 	//tmp[i] = ft_strjoin(tmp[i], "\n");
 	//printf("%s", line);
 	//printf("%s\n", cub->parse->res);
+
+	printf("res_x : |%s| res_y : |%s| south : |%s| north : |%s| east : |%s| weast |%s|\n", cub->parse->res_x, cub->parse->res_y, cub->parse->south, cub->parse->north, cub->parse->east, cub->parse->west);
 
 //	system("leaks a.out");
 	return 0;
