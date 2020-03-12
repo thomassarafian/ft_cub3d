@@ -21,7 +21,6 @@
 
 struct		s_parse
 {
-//	char **linee;
 	char *res_x;
 	char *res_y;
 	char *north;
@@ -30,7 +29,9 @@ struct		s_parse
 	char *east;
 	char *sprite;
 	char *floor;
+	int floor_rgb[3];
 	char *ceiling;
+	int ceiling_rgb[3];
 	char **map;
 };
 typedef	struct	s_parse	t_parse;
@@ -38,11 +39,15 @@ typedef	struct	s_parse	t_parse;
 
 struct		s_cub
 {
-	t_parse *parse;
+	t_parse parse;
 };
 typedef struct	s_cub t_cub;
 
 
-
+void	ft_error(char *str);
+int		num_count(int n);
+int		parsing(t_cub *cub, char *line);
+void	parsing_ceiling(t_cub *cub, char *line);
+void	parsing_floor(t_cub *cub, char *line);
 
 #endif
