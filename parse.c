@@ -2,28 +2,27 @@
 #include "parsing_res.c"
 #include "parsing_texture.c"
 #include "parsing_rgb.c"
+#include "parsing_map.c"
+
 // tsarafia je tenais a te dire que tu est vraimet un exemple au quotidien, tu me donne la cefor tous les jours. Reste tel quel. Ne bouge pas.
 
 void	ft_error(char *str)
 {
 
 	write(1, str, ft_strlen(str));
-	system("leaks a.out");
+	// system("leaks a.out");
 	exit(0);
 }
 
-void	parsing_map(t_cub *cub, char *line)
-{
-	
-}
+
 int		parsing(t_cub *cub, char *line)
 {
 	int i;
 
 	i = 0;
 	char *str;
-	while (line[i])
-	{
+	// while (line[i])
+	// {
 		if (line[i] == 'R')
 			parsing_res(cub, line);
 		else if (line[i] == 'N' && line[i + 1] == 'O')
@@ -40,14 +39,12 @@ int		parsing(t_cub *cub, char *line)
 			parsing_floor(cub, line);
 		else if (line[i] == 'C')
 			parsing_ceiling(cub, line);
-		else if (line[i] == '1')
-			parsing_map(cub, line);
-		i++;
-	}
-	return 0;	 
+		else if (line[i] == '1' && (!ft_strrchr(line, 'R') && !ft_strrchr(line, 'C') && !ft_strrchr(line, 'F')))
+			return (parsing_map(cub, line));
+		// i++;
+	// }
+	return 0;
 }
-
-
 
 //parsing ce sera toujours le meme ordre mais il peut y avoir des espaces et des \n
 
@@ -64,23 +61,42 @@ int main(int ac, char **av)
 	ret = 0;
 	i = 0;
 	t_cub cub;
+	// printf("coucoucou\n");
+	cub.parse.map = malloc(sizeof(char **));
+	// cub.parse.map = malloc(sizeof(char **)); //mallcoc la double chaien 1 fois
 	// cub = malloc(sizeof(t_cub));
 	// cub->parse = malloc(sizeof(t_parse));
 
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
-		parsing(&cub, line);
+		if (!(parsing(&cub, line)))
+			ft_error("parsing fail");
 	}
+
+	// printf("%s\n", cub.parse.map[2]);
+	// int k = 0;
+	// int j = 0;
+	// while (k < 100)
+	// {
+	// 	j = 0;
+	// 	while (j < 100)
+	// 	{
+	// 		printf("%c", cub.parse.map[i][j]);
+	// 		j++;
+	// 	}
+	// 	printf("\n");
+	// 	k++;
+	// }
 	//tmp[i] = line;
 	//tmp[i] = ft_strjoin(tmp[i], "\n");
 	//printf("%s", line);
 	//printf("%s\n", cub->parse.res);
 
 	printf("\nres_x : |%s| res_y : |%s| south : |%s| north : |%s| east : |%s| weast |%s|\n", cub.parse.res_x, cub.parse.res_y, cub.parse.south, cub.parse.north, cub.parse.east, cub.parse.west);
-	printf("R : %d - G : %d - B : %d\n", cub.parse.floor_rgb[0], cub.parse.floor_rgb[1], cub.parse.floor_rgb[2]);
-	printf("R : %d - G : %d - B : %d\n", cub.parse.ceiling_rgb[0], cub.parse.ceiling_rgb[1], cub.parse.ceiling_rgb[2]);
-	// free(t_parse);
-	// free(cub);
+	printf("FLOOR | R : %d - G : %d - B : %d\n", cub.parse.floor_rgb[0], cub.parse.floor_rgb[1], cub.parse.floor_rgb[2]);
+	printf("CEILING | R : %d - G : %d - B : %d\n", cub.parse.ceiling_rgb[0], cub.parse.ceiling_rgb[1], cub.parse.ceiling_rgb[2]);
+	// // free(t_parse);
+	// // free(cub);
 
 	// system("leaks a.out");
 	return 0;
@@ -95,7 +111,7 @@ int main(int ac, char **av)
 // 	map_raw = ft_strjoin(map_raw, "\n");
 // |
 /*
-   strcuture de char 
+   strcuture de char
 
 */
 

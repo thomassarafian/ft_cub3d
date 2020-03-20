@@ -49,5 +49,6 @@ int		num_count(int n);
 int		parsing(t_cub *cub, char *line);
 void	parsing_ceiling(t_cub *cub, char *line);
 void	parsing_floor(t_cub *cub, char *line);
+int		parsing_map(t_cub *cub, char *line);
 
 #endif
