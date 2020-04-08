@@ -19,6 +19,7 @@
 # include "gnl/get_next_line.h"
 # define BUFFER_SIZE 2048
 
+
 struct		s_parse
 {
 	char *res_x;
@@ -33,6 +34,9 @@ struct		s_parse
 	char *ceiling;
 	int ceiling_rgb[3];
 	char **map;
+	int i;
+	int strlen;
+	int nbline;
 };
 typedef	struct	s_parse	t_parse;
 
@@ -47,8 +51,9 @@ typedef struct	s_cub t_cub;
 void	ft_error(char *str);
 int		num_count(int n);
 int		parsing(t_cub *cub, char *line);
-void	parsing_ceiling(t_cub *cub, char *line);
-void	parsing_floor(t_cub *cub, char *line);
+int		parsing_ceiling(t_cub *cub, char *line);
+int		parsing_floor(t_cub *cub, char *line);
 int		parsing_map(t_cub *cub, char *line);
+int		parsing_line(t_cub *cub, char *str);
 
 #endif

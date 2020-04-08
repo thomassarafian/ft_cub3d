@@ -18,7 +18,7 @@ void	parsing_res_x(t_cub *cub, char *line)
 	int start;
 	int i;
 	int j;
-	
+
 	start = 0;
 	i = 0;
 	j = 0;

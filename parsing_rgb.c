@@ -1,6 +1,6 @@
 #include "cub.h"
 
-void	parsing_floor(t_cub *cub, char *line)
+int		parsing_floor(t_cub *cub, char *line)
 {
 
 	line++;
@@ -15,9 +15,10 @@ void	parsing_floor(t_cub *cub, char *line)
 		line++;
 	line++;
 	cub->parse.floor_rgb[2]  = ft_atoi(line);
+	return 1;
 }
 
-void	parsing_ceiling(t_cub *cub, char *line)
+int		parsing_ceiling(t_cub *cub, char *line)
 {
 
 	line++;
@@ -32,4 +33,5 @@ void	parsing_ceiling(t_cub *cub, char *line)
 		line++;
 	line++;
 	cub->parse.ceiling_rgb[2]  = ft_atoi(line);
+	return 1;
 }
