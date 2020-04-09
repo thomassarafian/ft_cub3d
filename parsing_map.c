@@ -24,7 +24,7 @@ int	find_in(char c, char *str)
 	return -1;
 }
 
-int ft_test0(t_cub cub, int i, int j)
+int check_zr(t_cub cub, int i, int j)
 {
 	char *s;
 
@@ -40,6 +40,37 @@ int ft_test0(t_cub cub, int i, int j)
 		return 0;
 }
 
+int check_sp(t_cub cub, int i, int j)
+{
+	char *s;
+
+	s = ft_strdup("1 ");
+	if ((find_in(cub.parse.map[j][i - 1], s) == 1)
+		&& (find_in(cub.parse.map[j][i + 1], s) == 1)
+		&& (find_in(cub.parse.map[j - 1][i], s) == 1)
+		&& (find_in(cub.parse.map[j + 1][i], s) == 1))
+	{
+		return 1;
+	}
+	else
+		return 0;
+}
+
+int check_one(t_cub cub, int i, int j)
+{
+	char *s;
+
+	s = ft_strdup("012");
+	if ((find_in(cub.parse.map[j][i - 1], s) == 1)
+		&& (find_in(cub.parse.map[j][i + 1], s) == 1)
+		&& (find_in(cub.parse.map[j - 1][i], s) == 1)
+		&& (find_in(cub.parse.map[j + 1][i], s) == 1))
+	{
+		return 1;
+	}
+	else
+		return 0;
+}
 
 int		check_around(t_cub cub, char c, int i, int j)
 {
@@ -61,7 +92,6 @@ void	line_check(t_cub cub, int j)
 	i = 0;
 	while (cub.parse.map[j][i])
 	{
-		// printf("%c ", cub.parse.map[j][i]);
 		if (cub.parse.map[j][i] == ' ')
 		{
 			if ((check_around(cub, ' ', i, j) || check_around(cub, '1', i, j)) && !check_around(cub, '0', i, j))
@@ -82,8 +112,7 @@ void	line_check(t_cub cub, int j)
 		}
 		if (cub.parse.map[j][i] == '0')
 		{
-			// printf("%c\n", cub.parse.map[j][i]);
-			if (ft_test0(cub, i, j))
+			if (check_zr(cub, i, j))
 			{
 				i++;
 			}
@@ -96,10 +125,7 @@ void	line_check(t_cub cub, int j)
 				ft_error("invalid map line check 0 ");
 			// printf("cicj\n");
 		}
-		// i++;
 	}
-			// printf("\n");
-
 }
 void	first_line_check(t_cub cub)
 {
@@ -122,11 +148,9 @@ void	last_line_check(t_cub cub)
 	int i;
 
 	i = 0;
-	// cub.parse.nbline -= 1;
-	while (cub.parse.map[cub.parse.nbline][i])
+	while (cub.parse.map[cub.parse.nbline-1][i])
 	{
-			// printf(" %c \n", cub.parse.map[cub.parse.nbline][i]);
-		if (cub.parse.map[cub.parse.nbline][i] == '1' || cub.parse.map[cub.parse.nbline][i] == ' ')
+		if (cub.parse.map[cub.parse.nbline-1][i] == '1' || cub.parse.map[cub.parse.nbline-1][i] == ' ')
 		{
 			i++;
 		}
@@ -147,7 +171,7 @@ int check_map(t_cub cub)
 	x = 0;
 	y = 0;
 	i = 0;
-	cub.parse.nbline -= 1;
+	// cub.parse.nbline -= 1;
 	while (y < cub.parse.nbline)
 	{
 		x = 0;
@@ -155,10 +179,9 @@ int check_map(t_cub cub)
 		{
 			if (y == 0)
 			{
-				printf("coico\n");
 				first_line_check(cub);
 			}
-			if (y == cub.parse.nbline)
+			if (y == cub.parse.nbline - 1)
 			{
 				// printf("coic\n");
 				last_line_check(cub);
