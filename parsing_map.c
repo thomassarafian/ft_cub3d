@@ -1,26 +1,52 @@
 #include "cub.h"
 
 
-int	parsing_map(t_cub *cub, char *line)
+int		parsing_map(t_cub *cub, char *line)
 {
 	int size_map;
 	cub->parse.map[cub->parse.i++] = ft_strdup(line);
 	return 1;
 }
 
+int	find_in(char c, char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == c)
+		{
+			return 1;
+		}
+		i++;
+	}
+	return -1;
+}
+
+int ft_test0(t_cub cub, int i, int j)
+{
+	char *s;
+
+	s = ft_strdup("012");
+	if ((find_in(cub.parse.map[j][i - 1], s) == 1)
+		&& (find_in(cub.parse.map[j][i + 1], s) == 1)
+		&& (find_in(cub.parse.map[j - 1][i], s) == 1)
+		&& (find_in(cub.parse.map[j + 1][i], s) == 1))
+	{
+		return 1;
+	}
+	else
+		return 0;
+}
+
 
 int		check_around(t_cub cub, char c, int i, int j)
 {
-
 	if (cub.parse.map[j][i - 1] == c ||
 		cub.parse.map[j][i + 1] == c ||
 		cub.parse.map[j - 1][i] == c ||
-		cub.parse.map[j + 1][i] == c ||
-
-		cub.parse.map[j - 1][i + 1] == c ||
-		cub.parse.map[j][i + 1] == c ||
-		cub.parse.map[j - 1][i] == c ||
-		cub.parse.map[j + 1][i] == c ||)
+		cub.parse.map[j + 1][i] == c)
 	{
 		return 1;
 	}
@@ -33,10 +59,9 @@ void	line_check(t_cub cub, int j)
 	int i;
 
 	i = 0;
-	// while (cub.parse.map[j][i] == ' ')
-	// 	i++;
 	while (cub.parse.map[j][i])
 	{
+		// printf("%c ", cub.parse.map[j][i]);
 		if (cub.parse.map[j][i] == ' ')
 		{
 			if ((check_around(cub, ' ', i, j) || check_around(cub, '1', i, j)) && !check_around(cub, '0', i, j))
@@ -57,15 +82,24 @@ void	line_check(t_cub cub, int j)
 		}
 		if (cub.parse.map[j][i] == '0')
 		{
-			if ((check_around(cub, '0', i, j) || check_around(cub, '1', i, j)) && !check_around(cub, ' ', i, j))
+			// printf("%c\n", cub.parse.map[j][i]);
+			if (ft_test0(cub, i, j))
 			{
 				i++;
 			}
+			// if ((check_around(cub, '0', i, j) || check_around(cub, '1', i, j)) && !check_around(cub, ' ', i, j))
+			// {
+				// printf("coucou\n");
+				// i++;
+			// }
 			else
-				ft_error("invalid map line check");
+				ft_error("invalid map line check 0 ");
+			// printf("cicj\n");
 		}
 		// i++;
 	}
+			// printf("\n");
+
 }
 void	first_line_check(t_cub cub)
 {
@@ -75,12 +109,33 @@ void	first_line_check(t_cub cub)
 	while (cub.parse.map[0][i])
 	{
 		if (cub.parse.map[0][i] == '1' || cub.parse.map[0][i] == ' ')
+		{
+			// printf("non\n");
 			i++;
+		}
 		else
 			ft_error("invalid map first line check");
 	}
 }
+void	last_line_check(t_cub cub)
+{
+	int i;
 
+	i = 0;
+	// cub.parse.nbline -= 1;
+	while (cub.parse.map[cub.parse.nbline][i])
+	{
+			// printf(" %c \n", cub.parse.map[cub.parse.nbline][i]);
+		if (cub.parse.map[cub.parse.nbline][i] == '1' || cub.parse.map[cub.parse.nbline][i] == ' ')
+		{
+			i++;
+		}
+		else
+		{
+			ft_error("invalid map last line check");
+		}
+	}
+}
 
 int check_map(t_cub cub)
 {
@@ -92,20 +147,29 @@ int check_map(t_cub cub)
 	x = 0;
 	y = 0;
 	i = 0;
-
+	cub.parse.nbline -= 1;
 	while (y < cub.parse.nbline)
 	{
 		x = 0;
 		while (x < cub.parse.strlen)
 		{
 			if (y == 0)
+			{
+				printf("coico\n");
 				first_line_check(cub);
+			}
+			if (y == cub.parse.nbline)
+			{
+				// printf("coic\n");
+				last_line_check(cub);
+			}
 			else
 				line_check(cub, y);
 			x++;
 		}
 		y++;
 	}
+	// printf("coucoi\n");
 	x = 0;
 	i = 0;
 	while (x < cub.parse.nbline)

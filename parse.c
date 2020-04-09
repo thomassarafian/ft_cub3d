@@ -60,7 +60,7 @@ int		parsing(t_cub *cub, char *line)
 		return parsing_floor(cub, line);
 	else if (line[0] == 'C')
 		return parsing_ceiling(cub, line);
-	else if ((line[0] == ' ' || line[0] == '1')) //&& (!ft_strrchr(line, 'R') && !ft_strrchr(line, 'C') && !ft_strrchr(line, 'F')))
+	else if ((line[0] == ' ' || line[0] == '1'|| line[0] == '0')) //&& (!ft_strrchr(line, 'R') && !ft_strrchr(line, 'C') && !ft_strrchr(line, 'F')))
 		return parsing_map(cub, line);
 	return 1;
 }
