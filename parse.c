@@ -87,38 +87,34 @@ int main(int ac, char **av)
 	{
 		parsing_line(&cub, str);
 	}
+	close(fd);
 	ret = 0;
 	fd = open(av[1], O_RDONLY);
-	cub.parse.map = (char **)malloc(sizeof(char *) * cub.parse.nbline);
+	cub.parse.map = (char **)malloc(sizeof(char *) * cub.parse.nbline + 1);
 	while ((ret = get_next_line(fd, &line)) > 0)
 	{
 		parsing(&cub, line);
 	}
 
-	// printf("-> %s\n", *cub->parse.map);
-	// parsing_split(&cub, line);
+	check_map(cub);
 
 	int k = 0;
-	// printf("(%d)\n", cub.parse.i);
+
 	int m = 0;
-	while (k < cub.parse.nbline)
-	{
+	// while (k < cub.parse.nbline)
+	// {
 
-		printf("%d - ", m);
-		printf("%s\n", cub.parse.map[k]);
-		m++;
-		k++;
-	}
-	//tmp[i] = line;
-	//tmp[i] = ft_strjoin(tmp[i], "\n");
-	//printf("%s", line);
-	//printf("%s\n", cub->parse.res);
+	// 	printf("%d - ", m);
+	// 	printf("%s\n", cub.parse.map[k]);
+	// 	m++;
+	// 	k++;
+	// }
 
-		printf("\nres_x : |%s| res_y : |%s| south : |%s| north : |%s| east : |%s| weast |%s|\n", cub.parse.res_x, cub.parse.res_y, cub.parse.south, cub.parse.north, cub.parse.east, cub.parse.west);
-		printf("FLOOR | R : %d - G : %d - B : %d\n", cub.parse.floor_rgb[0], cub.parse.floor_rgb[1], cub.parse.floor_rgb[2]);
-		printf("CEILING | R : %d - G : %d - B : %d\n", cub.parse.ceiling_rgb[0], cub.parse.ceiling_rgb[1], cub.parse.ceiling_rgb[2]);
-		printf(" -> %d\n", cub.parse.strlen);
-		printf(" -> %d\n", cub.parse.nbline);
+	// printf("\nres_x : |%s| res_y : |%s| south : |%s| north : |%s| east : |%s| weast |%s|\n", cub.parse.res_x, cub.parse.res_y, cub.parse.south, cub.parse.north, cub.parse.east, cub.parse.west);
+	// printf("FLOOR | R : %d - G : %d - B : %d\n", cub.parse.floor_rgb[0], cub.parse.floor_rgb[1], cub.parse.floor_rgb[2]);
+	// printf("CEILING | R : %d - G : %d - B : %d\n", cub.parse.ceiling_rgb[0], cub.parse.ceiling_rgb[1], cub.parse.ceiling_rgb[2]);
+	// printf(" -> %d\n", cub.parse.strlen);
+	// printf(" -> %d\n", cub.parse.nbline);
 
 	// system("leaks a.out");
 	return 0;
