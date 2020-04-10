@@ -94,10 +94,14 @@ void	line_check(t_cub cub, int j)
 	{
 		if (cub.parse.map[j][i] == ' ')
 		{
-			if ((check_around(cub, ' ', i, j) || check_around(cub, '1', i, j)) && !check_around(cub, '0', i, j))
+			if (check_sp(cub, i, j))
 			{
 				i++;
 			}
+			// if ((check_around(cub, ' ', i, j) || check_around(cub, '1', i, j)) && !check_around(cub, '0', i, j))
+			// {
+			// 	i++;
+			// }
 			else
 				ft_error("invalid map line check space");
 		}
@@ -160,6 +164,11 @@ void	last_line_check(t_cub cub)
 		}
 	}
 }
+
+// il faut qu'il y ait un N S E W pas d'autre
+// sil y a des murs loin c'est pas grave
+// sil y a une autre map loin c'est pas grave, mais pas de NSEW
+
 
 int check_map(t_cub cub)
 {
