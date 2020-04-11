@@ -97,7 +97,7 @@ int main(int ac, char **av)
 	printf("Map valide!\n");
 	printf("Le joueur commencera en directon du : %c\n\n",cub.parse.side);
 
-	printf("FINAL cub.parse.pos[0] = %d - cub.parse.pos[1] = %d\n", cub.parse.pos[0], cub.parse.pos[1]);
+	// printf("FINAL cub.parse.pos[0] = %d - cub.parse.pos[1] = %d\n", cub.parse.pos[0], cub.parse.pos[1]);
 
 	show_map(&cub);
 
