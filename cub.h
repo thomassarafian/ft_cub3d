@@ -19,7 +19,6 @@
 # include "gnl/get_next_line.h"
 # define BUFFER_SIZE 2048
 
-
 struct		s_parse
 {
 	char *res_x;
@@ -37,6 +36,9 @@ struct		s_parse
 	int i;
 	int strlen;
 	int nbline;
+	int pos[2];
+	char side;
+
 };
 typedef	struct	s_parse	t_parse;
 
@@ -47,13 +49,36 @@ struct		s_cub
 };
 typedef struct	s_cub t_cub;
 
-
-void	ft_error(char *str);
-int		num_count(int n);
-int		parsing(t_cub *cub, char *line);
-int		parsing_ceiling(t_cub *cub, char *line);
+//parsing_res.c
+void	parsing_res_x(t_cub *cub, char *line);
+void	parsing_res_y(t_cub *cub, char *line);
+int		parsing_res(t_cub *cub, char *line);
+//parsing_rgb.c
 int		parsing_floor(t_cub *cub, char *line);
-int		parsing_map(t_cub *cub, char *line);
+int		parsing_ceiling(t_cub *cub, char *line);
+//parsing_texture.c
+int		parsing_north(t_cub *cub, char *line);
+int		parsing_west(t_cub *cub, char *line);
+int		parsing_east(t_cub *cub, char *line);
+int		parsing_south(t_cub *cub, char *line);
+//parse.c
+void	ft_start(t_cub *cub);
+void	ft_error(char *str);
 int		parsing_line(t_cub *cub, char *str);
+int		parsing(t_cub *cub, char *line);
+//parsing_map1.c
+void	fill_sp(t_cub *cub);
+int		find_in(char c, char *str);
+void	show_map(t_cub *cub);
+int		parsing_map(t_cub *cub, char *line);
+int 	check_map(t_cub *cub);
+//parsing_map2.c
+int		check_around(t_cub *cub, int j, int i, char *s);
+void	line_check(t_cub *cub, int j);
+void	first_line_check(t_cub *cub);
+void	last_line_check(t_cub *cub);
+
+
+
 
 #endif
