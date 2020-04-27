@@ -158,64 +158,11 @@ int main(void)
 		int count_w = 0;
 			printf("DRAWSTART : |%d| && DRAWEND : |%d|\n",drawStart, drawEnd);
 		//printf("X : |%d| &&  : |%d|\n",drawStart, drawEnd);
-		/*while (count_w < screenWidth)
-		{
-			count_h = 0;
-			while (count_h < screenHeight)
-			{
-				if(count_h >= drawStart && count_h <= drawEnd)
-				{
-				//	mlx.img.data[screenHeight * count_w + count_h] = 0x00FF00;
-					mlx.img.data[count_h * screenWidth + count_w] = 0xFFFF66;
-				}
-				else
-				{
-					//mlx.img.data[screenHeight * count_w + count_h] = 0xFFFFFF;
-					mlx.img.data[count_h * screenWidth + count_w] = 0x00FF00;
-				}
-				count_h++;
-			}
-			count_w++;
-		}*/
-		
 		while (drawStart < drawEnd)
 		{
 			mlx.img.data[(int)x + (drawEnd * screenWidth)] = 0xFFFFFF;
 			drawEnd--;
 		}
-		//mlx.img.data[screenHeight * x + count_h] = 0xFFFFFF;
-		
-		/*
-		count_h = 0;
-		while (count_h  < screenHeight)
-		{
-			if (drawStart < drawEnd)
-			{
-				while (drawStart < drawEnd)
-				{
-					mlx.img.data[(int)x + (drawEnd + screenWidth)] = 0xFF0000;
-					drawEnd--;
-				}
-			}
-			else
-				mlx.img.data[screenHeight * x + count_h] = 0xFFFFFF;
-			count_h++;
-		}*/
-		/*while (++count_h < screenHeight)
-		{
-			count_w = -1;
-			while (++count_w < screenWidth)
-			{
-				if (count_w >= drawStart && count_w <= drawEnd)
-				{
-					mlx.img.data[count_h * screenWidth + count_w] = 0xFFFFFF;
-				}
-				else
-					mlx.img.data[count_h * screenWidth + count_w] = 0xFFFF66;
-			}
-		}*/
-		//draw the pixels of the stripe as a vertical line
-		//verLine(x, drawStart, drawEnd, color);
 		x++;
 	}
 
