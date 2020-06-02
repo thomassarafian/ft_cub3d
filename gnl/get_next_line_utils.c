@@ -12,16 +12,6 @@
 
 #include "get_next_line.h"
 
-/*int		ft_strlen(char *str)
-{
-	size_t i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
-*/
 char	*ft_getline(char *str)
 {
 	int		length;
@@ -79,7 +69,7 @@ char	*ft_strcpy(char *dest, char *src)
 	return (dest);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjjoin(char const *s1, char const *s2)
 {
 	char	*str1;
 	char	*str2;
@@ -93,9 +83,10 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	str2 = (char*)s2;
 	i = -1;
 	j = -1;
-	if (!(dest = malloc(sizeof(char*) *
-	(ft_strlen(str1) + ft_strlen(str2) + 1))))
+	if (!(dest = (char *)malloc(sizeof(char) * (ft_strlen(str1)
+		+ ft_strlen(str2) + 1))))
 		return (NULL);
+	ft_bzero(dest, ft_strlen(str1) + ft_strlen(str2) + 1);
 	while (str1[++i])
 		dest[i] = str1[i];
 	while (str2[++j])

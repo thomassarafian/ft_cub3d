@@ -11,19 +11,7 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include "../libft/libft.h"
-/*static void	ft_bzero(void *s, size_t n)
-{
-	unsigned char	*ptr;
 
-	ptr = (unsigned char*)s;
-	while (n > 0)
-	{
-		*(ptr++) = 0;
-		n--;
-	}
-}
-*/
 static int	ft_manage_rest(t_gnl *p, char **line, char **buffer)
 {
 	char	*rest;
@@ -34,7 +22,7 @@ static int	ft_manage_rest(t_gnl *p, char **line, char **buffer)
 		return (-1);
 	if (empty_rest == 1)
 	{
-		if ((*line = ft_strjoin(*line, *buffer)) == NULL)
+		if ((*line = ft_strjjoin(*line, *buffer)) == NULL)
 			return (-1);
 		ft_bzero(*buffer, BUFFER_SIZE + 1);
 		return (1);
@@ -43,7 +31,7 @@ static int	ft_manage_rest(t_gnl *p, char **line, char **buffer)
 	{
 		if ((subline = ft_getline(*buffer)) == NULL)
 			return (-1);
-		if ((*line = ft_strjoin(*line, subline)) == NULL)
+		if ((*line = ft_strjjoin(*line, subline)) == NULL)
 			return (-1);
 		p->rest = rest;
 		free(subline);
@@ -81,7 +69,7 @@ static int	ft_read(int fd, t_gnl *p, char **line)
 	int		ret;
 
 	ret = 0;
-	if (!(buffer = malloc(sizeof(char) * BUFFER_SIZE + 1)))
+	if (!(buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1))))
 		return (-1);
 	ft_bzero(buffer, BUFFER_SIZE + 1);
 	if (!(*line = malloc(sizeof(char) * 1)))
@@ -96,6 +84,7 @@ static int	ft_read(int fd, t_gnl *p, char **line)
 		if (ret <= 0)
 		{
 			free(buffer);
+			// free(*line);
 			return (ret);
 		}
 	}
@@ -107,11 +96,9 @@ int			get_next_line(int fd, char **line)
 {
 	static t_gnl	p;
 	int				ret;
-	
+
 	if (fd < 0 || BUFFER_SIZE <= 0 || line == NULL || read(fd, 0, 0) < 0)
 		return (-1);
-//	printf("avant\n");
 	ret = ft_read(fd, &p, line);
-//	printf("apres %d\n", ret);
 	return (ret);
 }
