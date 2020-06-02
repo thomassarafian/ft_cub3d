@@ -29,16 +29,13 @@ void	get_lines3(t_cub *cub, t_info *infos, char *av1)
 		ft_error("Allocated map fail");
 	while (++x < cub->parse.nbline + 1)
 		cub->parse.map[x] = 0;
-	while ((ret = get_next_line(fd, &str)) > 0 && i < cub->parse.nbline) 
+	while ((ret = get_next_line(fd, &str)) > 0 && i < cub->parse.nbline)
 	{
 		if (find_in(str[0], " 012") && ++i)
 			parsing_map(cub, str);
 		free(str);
 	}
-
-	cub->parse.nbline++; //new
-	parsing_map(cub, str); //new
-	// printf("->>>>%s\n", str);
+	parsing_map(cub, str);
 	free(str);
 }
 
@@ -59,13 +56,13 @@ void	get_lines2(t_cub *cub, t_info *infos, char *av1)
 		parsing_line(cub, str);
 		free(str);
 	}
+	parsing_line(cub, str);
 	free(str);
 	while ((ret = get_next_line(fd, &str)) > 0)
 	{
 		parsing_line(cub, str);
 		free(str);
 	}
-	cub->parse.nbline--;
 	free(str);
 	close(fd);
 	get_lines3(cub, infos, av1);

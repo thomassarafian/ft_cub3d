@@ -84,7 +84,6 @@ static int	ft_read(int fd, t_gnl *p, char **line)
 		if (ret <= 0)
 		{
 			free(buffer);
-			// free(*line);
 			return (ret);
 		}
 	}

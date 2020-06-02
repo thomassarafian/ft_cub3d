@@ -21,7 +21,7 @@ void	fill_sp(t_cub *cub)
 
 	len = 0;
 	j = -1;
-	while (++j < cub->parse.nbline -1) //NEW -1 mais pourquoi??
+	while (++j < cub->parse.nbline)
 	{
 		i = -1;
 		len = ft_strlen(cub->parse.map[j]);
@@ -75,7 +75,6 @@ void	parsing_map(t_cub *cub, char *line)
 		i++;
 	}
 	cub->parse.map[cub->parse.i++] = ft_strdup(line);
-	// printf("line : -> |%s|\n", cub->parse.map[--cub->parse.i]);
 }
 
 int		check_map(t_cub *cub)
@@ -86,9 +85,7 @@ int		check_map(t_cub *cub)
 	if (cub->parse.side == '0')
 		ft_error("Map invalid : No side found...\n");
 	first_line_check(cub);
-
-	printf("nblien : %d\n", cub->parse.nbline);
-	while (y < cub->parse.nbline-1)
+	while (y < cub->parse.nbline - 1)
 	{
 		line_check(cub, y);
 		y++;

@@ -37,7 +37,6 @@ void	line_check(t_cub *cub, int j)
 		if (cub->parse.map[j][i] == '1')
 			if (!check_around(cub, j, i, " 012NSEW"))
 			{
-				printf("line-->>> %s\n", cub->parse.map[j]);
 				ft_error("Map invalid : Character One\n");
 			}
 		if ((cub->parse.map[j][i] == '0') || (cub->parse.map[j][i] == '2')
@@ -72,14 +71,12 @@ void	last_line_check(t_cub *cub)
 	i = 0;
 	while (cub->parse.map[cub->parse.nbline - 1][i])
 	{
-		printf("nbline : %d\n", cub->parse.nbline);
 		if (cub->parse.map[cub->parse.nbline - 1][i] == '1'
 				|| cub->parse.map[cub->parse.nbline - 1][i] == ' ')
 			i++;
 		else
 			ft_error("Map invalid : Last Line\n");
 	}
-	cub->parse.nbline--; //NEW
 }
 
 int		check_around(t_cub *cub, int j, int i, char *s)
@@ -106,10 +103,7 @@ int		check_around(t_cub *cub, int j, int i, char *s)
 	else
 	{
 		if (last_checkaround(cub, i, j, s) == 1)
-		{
-			// printf("s----> %c\n", cub->parse.map[j][i - 1]);
 			return (1);
-		}
 	}
 	return (0);
 }
