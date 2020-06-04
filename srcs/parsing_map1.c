@@ -69,9 +69,9 @@ void	parsing_map(t_cub *cub, char *line)
 		}
 		else if (line[i] == 'N' || line[i] == 'S'
 				|| line[i] == 'E' || line[i] == 'W')
-			ft_error("Map invalid : Spawn's number > 1\n");
+			ft_error("Map invalid\n");
 		if (!find_in(line[i], " 012NSEW"))
-			ft_error("Map invalid : Invalid character in map content...\n");
+			ft_error("Map invalid\n");
 		i++;
 	}
 	cub->parse.map[cub->parse.i++] = ft_strdup(line);
@@ -83,7 +83,7 @@ int		check_map(t_cub *cub)
 
 	y = 1;
 	if (cub->parse.side == '0')
-		ft_error("Map invalid : No side found...\n");
+		ft_error("Map invalid\n");
 	first_line_check(cub);
 	while (y < cub->parse.nbline - 1)
 	{
