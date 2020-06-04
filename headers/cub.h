@@ -239,6 +239,7 @@ void					draw_sprite(t_info *infos, t_cub *cub, t_mlx *mlx);
 int						ft_strcmp(char *s1, char *s2);
 int						check_ext(char *s, char *ext);
 void					delete_sp(char *str);
+int						expose_hook(void *params);
 void					ft_error(char *str);
 char					*rgb_parser(t_cub *cub, char *line);
 void					secure_rgb(t_cub *cub, char *line);
