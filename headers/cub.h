@@ -148,6 +148,7 @@ struct					s_cub
 	int		spr;
 	int		ceil;
 	int		floor;
+	int		index;
 };
 typedef	struct s_cub		t_cub;
 
